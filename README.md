@@ -14,9 +14,7 @@ Accurate phase identification of:
 
 using **only SEM images**, bypassing time-consuming and equipment-intensive **Energy Dispersive X-ray Spectroscopy (EDS)**.
 
-
-
-
+![EDS](https://github.com/user-attachments/assets/cc6f2be0-4dba-4af8-b38c-bf9cd854647e)
 
 #### Methodology
 
