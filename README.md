@@ -3,7 +3,7 @@ This repository implements a deep learning pipeline for **semantic segmentation 
 
 
 
-#### Objective
+## Objective
 
 Accurate phase identification of:
 
@@ -15,7 +15,7 @@ Accurate phase identification of:
 using **only SEM images**, bypassing time-consuming and equipment-intensive **Energy Dispersive X-ray Spectroscopy (EDS)**.
 
 
-#### Methodology
+## Methodology
 
 ![Workflow-1](https://github.com/user-attachments/assets/300a5024-6907-4b06-b272-53513e8968df)
 
