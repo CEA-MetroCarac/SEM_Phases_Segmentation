@@ -1,2 +1,2 @@
-# U-Net-SOFC
-U-Net for segmentation of SOFC SEM images
+# U-Net for SOFC SEM image phase characterization
+U-Net for segmentation of SOFC SEM images.
