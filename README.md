@@ -31,7 +31,7 @@ A U-Net model was trained in a supervised manner to classify four key phases: po
 **(c) U-Net segmentation of SEM images**
 Full-size images were segmented using a sliding window approach with overlapping patches. Predictions were averaged in overlapping regions to reduce edge artifacts and improve continuity, yielding high-quality, scalable segmentations suitable for automated microstructural analysis.
 
-## Submission
+## Publication
 
 This work has been submitted to the journal _Engineering Applications of Artificial Intelligence_, as a paper entitled “Enhanced Phase Segmentation of Scanning Electron Microscopy Images Using U-Net with Energy Dispersive X-ray Spectroscopy-Guided Labeling“, currently under review.
 
