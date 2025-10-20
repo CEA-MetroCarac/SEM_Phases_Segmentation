@@ -33,5 +33,5 @@ Full-size images were segmented using a sliding window approach with overlapping
 
 ## Publication
 
-This work has been submitted to the journal _Engineering Applications of Artificial Intelligence_, as a paper entitled “Enhanced Phase Segmentation of Scanning Electron Microscopy Images Using U-Net with Energy Dispersive X-ray Spectroscopy-Guided Labeling“, currently under review.
+This work has been submitted to the journal _Materials and Design_, as a paper entitled “Enhanced Phase Segmentation of Scanning Electron Microscopy Images Using U-Net with Energy Dispersive X-ray Spectroscopy-Guided Labelling“, currently under review.
 
