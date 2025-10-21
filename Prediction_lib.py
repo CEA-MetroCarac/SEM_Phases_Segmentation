@@ -268,4 +268,115 @@ def Large_pred(Image_name, Label_name, model = None, Patch_size=256, stride=64, 
     return Reconstructed_avg_proba, final_pred
 
 "=============================================================================================================================================================="
+def updated_Large_pred(Image_name, Label_name, model = None, Patch_size=256, stride=64, Norm=True, tech=None):
 
+    """
+    Perform large-scale prediction on an image using patch-wise prediction and stride shifting (sliding windows).
+
+    Parameters:
+        Image_name (str or Path): Path to the input image file to be processed.
+        Label_name (str or Path): Path to the corresponding label file.
+        model (keras.Model or None): Trained Keras model to use for prediction. Required if tech is not 'Ensemble'.
+                                     If tech='Ensemble', this parameter is ignored and multiple models are used.
+        Patch_size (int): Size of the square patches to be extracted from the image (default is 256).
+        stride (int): Stride value used for sliding window patch extraction (default is 64).
+        Norm (bool): If True, normalization is applied to the input patches (default is True).
+        tech (str or None): Optional identifier to specify the prediction method or technique used 
+                            (e.g., direct U-Net segmentation or ensemble strategies).
+
+    Returns:
+        Reconstructed_avg_proba (np.ndarray): Softmax probability map of shape (H, W, num_classes), averaged over all stride offsets.
+        final_pred (np.ndarray): Final segmentation map of shape (H, W), containing the class index with the highest probability per pixel.
+    """
+
+    s = stride
+    start = timeit.default_timer()
+    
+    print("Processing image :", Image_name)
+    
+    I = ski.imread(Image_name)
+    I_size = I.shape
+    
+    flip_horiz = np.fliplr(I)
+    flip_vert = np.flipud(I)
+    flip_both = np.flip(I)
+    top = np.concatenate((I, flip_horiz), axis=1)      
+    bottom = np.concatenate((flip_vert, flip_both), axis=1)  
+    I_new =  np.concatenate((top, bottom), axis=0)    
+
+    I = I_new
+
+    L = ski.imread(Label_name)
+
+    # Crop image to be dividable py the patch_size
+    x_c = int(np.floor(I.shape[0]/Patch_size))
+    y_c = int(np.floor(I.shape[1]/Patch_size))
+    I_c = I[:x_c*Patch_size, :y_c*Patch_size]
+    L_c = L[:x_c*Patch_size, :y_c*Patch_size]
+    
+    # --- Define parameters ---
+    stride_offsets = generate_stride_offsets(patch_size=Patch_size, stride=s)
+    image_shape = (I_c.shape[0], I_c.shape[1], 4)
+    
+    # --- Prepare accumulators ---
+    probability_accumulator = np.zeros(image_shape, dtype=np.float32)
+    canvas_accumulator = np.zeros(image_shape[:2], dtype=np.float32)
+    
+    # --- Loop over each stride ---
+    c = 0
+    for sx, sy in stride_offsets:
+        c = c+1
+        print('Iteration',c,'out of',len(stride_offsets))
+        patches, patches_info, patches_canvas = sliding_patchify_with_canvas(
+            I_c, px=Patch_size, py=Patch_size, sx=sx, sy=sy
+        )
+        
+        stack_patches = np.stack(patches, axis=0)
+        stack_patches_canvas = np.stack(patches_canvas, axis=0)
+        
+        images = np.expand_dims(stack_patches, axis=-1)
+        
+        if Norm:
+            test_images = normalize(images, axis=1)
+        else:
+            test_images = images
+    
+        if tech == 'Ensemble':
+            # Run ensemble prediction
+            avg_prediction, _, _ = Ensemble_prediction(
+                test_images, n_classes=4, Patch_size=Patch_size, Num_of_models=10
+            )
+    
+        else: 
+            # Direct prediction using U-Net:
+            if model is None:
+                raise ValueError("Technique requires model.")
+                
+            avg_prediction = model.predict(test_images, verbose=0)
+    
+        # Reconstruct the full image prediction
+        reconstructed_image = restitch_from_patches(avg_prediction, patches_info, image_shape)
+        probability_accumulator += reconstructed_image
+    
+        # Accumulate the canvas (number of contributions per pixel)
+        canvas_accumulator += np.sum(stack_patches_canvas, axis=0)
+    
+    # --- Normalize the final probabilities ---
+    canvas_accumulator = np.maximum(canvas_accumulator, 1e-9)  # Prevent division by zero
+    Reconstructed_avg_proba = probability_accumulator / canvas_accumulator[..., np.newaxis]
+    
+    # --- Final class prediction ---
+    final_pred = np.argmax(Reconstructed_avg_proba, axis=-1)
+    final_pred = final_pred[0:I_size[0], 0:I_size[1]]
+    
+    
+    stop = timeit.default_timer()
+    total_time = stop - start
+    print(
+        f"Patch prediction done. Prediction time is: {np.floor(total_time/60):.0f}:"
+        f"{int(total_time - np.floor(total_time/60)*60):02d} min"
+    )
+    
+    return Reconstructed_avg_proba, final_pred
+
+"=============================================================================================================================================================="
