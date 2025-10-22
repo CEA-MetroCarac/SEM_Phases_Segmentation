@@ -1,0 +1,27 @@
+# Initial packages
+numpy==1.26.4
+scipy==1.14.0
+pandas==2.2.2
+matplotlib==3.9.2
+seaborn==0.13.2
+tqdm==4.66.5
+PyYAML==6.0.2
+
+# Image Processing packages
+scikit-image==0.24.0
+opencv-python==4.10.0.84
+albumentations==1.4.21
+patchify==0.2.3
+tifffile==2024.8.10
+imageio==2.35.1
+
+# Deep Learning packages
+torch==2.7.1+cu126
+torchvision==0.22.1+cu126
+torchaudio==2.7.1+cu126
+tensorflow==2.17.0
+keras==3.5.0
+stardist==0.9.1
+
+# Optional utilities packages
+joblib==1.4.2
