@@ -1,3 +1,6 @@
+[![Read Article](https://img.shields.io/badge/📄%20Read%20Article-Materials%20%26%20Design-blue)](https://doi.org/your-doi-link)
+
+
 # Phase Segmentation of SOC SEM Images using U-Net
 This repository implements a deep learning pipeline for **semantic segmentation of Solid Oxide Cell (SOC)** microstructures from **2D SEM images**, without relying on EDS data at inference time.
 
