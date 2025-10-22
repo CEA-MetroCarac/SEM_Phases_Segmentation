@@ -17,7 +17,7 @@ using **only SEM images**, bypassing time-consuming and equipment-intensive **En
 
 ## Methodology
 
-![Workflow-1](./assets/Workflow-1.png)
+![Workflow-1](assets/Workflow-1.png)
 
 
 
