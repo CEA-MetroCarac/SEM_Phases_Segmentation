@@ -40,6 +40,12 @@ Predictions were averaged in overlapping regions to reduce edge artifacts and im
 
 ---
 
+## Publication
+
+This work has been submitted to the journal _Materials and Design_, as a paper entitled “Enhanced Phase Segmentation of Scanning Electron Microscopy Images Using U-Net with Energy Dispersive X-ray Spectroscopy-Guided Labelling“, currently under review.
+
+---
+
 ## ⚙️ Requirements
 
 Clone the repository and install dependencies:
@@ -50,7 +56,5 @@ cd SEM_Phases_Segmentation
 pip install -r requirements.txt
 
 
-## Publication
 
-This work has been submitted to the journal _Materials and Design_, as a paper entitled “Enhanced Phase Segmentation of Scanning Electron Microscopy Images Using U-Net with Energy Dispersive X-ray Spectroscopy-Guided Labelling“, currently under review.
 
