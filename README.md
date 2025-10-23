@@ -55,6 +55,3 @@ git clone https://github.com/CEA-MetroCarac/SEM_Phases_Segmentation.git
 cd SEM_Phases_Segmentation
 pip install -r requirements.txt
 
-
-
-
