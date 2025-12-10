@@ -1,4 +1,4 @@
-[![Read Article](https://img.shields.io/badge/📄%20Read%20Article-Materials%20%26%20Design-blue)]([https://doi.org/10.1016/j.matdes.2025.115200](https://doi.org/10.1016/j.matdes.2025.115200))
+[![Read Article](https://img.shields.io/badge/📄%20Read%20Article-Materials%20%26%20Design-blue)](https://doi.org/10.1016/j.matdes.2025.115200)
 
 # Phase Segmentation of SOC SEM Images using U-Net
 
