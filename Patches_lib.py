@@ -140,8 +140,8 @@ def Image_augmentation(image, mask, num_transformations=5):
         # Define the transformation pipeline
         transform = A.Compose([
             # Geometric transforms
-            A.Flip(p=0.5),  # Flip the image vertically or horizontally
-            A.HorizontalFlip(p=0.5),  # Flip the image horizontally, around the y-axis
+            A.VerticalFlip(p=0.5),  # Flip the image vertically
+            A.HorizontalFlip(p=0.5),  # Flip the image horizontally
             A.Rotate(limit=45, p=0.5),  # Rotate the image by a randomly selected angle within the given limit
             # Color transforms
             A.RandomBrightnessContrast(brightness_limit=0.2, 
@@ -152,8 +152,8 @@ def Image_augmentation(image, mask, num_transformations=5):
             # Noise transforms
             A.GaussNoise(p=0.5),  # Apply Gaussian noise
             # Additional transforms for more variability
-            A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=45, p=0.5),
-            A.HueSaturationValue(hue_shift_limit=20, sat_shift_limit=30, val_shift_limit=20, p=0.5),
+            # A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=45, p=0.5),
+            # A.HueSaturationValue(hue_shift_limit=20, sat_shift_limit=30, val_shift_limit=20, p=0.5),
         ])
         return transform
 
@@ -181,10 +181,11 @@ def Image_augmentation(image, mask, num_transformations=5):
         transformed_image = np.transpose(transformed_image, (2, 0, 1))
         
         # Collect the transformed images and masks
-        transformed_images.append(transformed_image)
+        transformed_images.append(transformed_image2)
         transformed_masks.append(transformed_mask)
     
     return transformed_images, transformed_masks
 
 "=============================================================================================================================================================="
+
 
