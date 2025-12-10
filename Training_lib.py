@@ -382,32 +382,33 @@ def Main_model(X_train=None, y_train_cat=None, X_val=None, y_val_cat=None,
         # For test-only mode, get image dimensions from saved model later if needed
         # Placeholder dimensions for model instantiation (can be adjusted)
         IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS = Patch_size, Patch_size, 1  # Default/fallback values
-         # --- Define model ---
-        model = multi_unet_model(n_classes=n_classes, 
-                                 IMG_HEIGHT=IMG_HEIGHT, 
-                                 IMG_WIDTH=IMG_WIDTH, 
-                                 IMG_CHANNELS=IMG_CHANNELS)
-        model.compile(optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
-                      loss='categorical_crossentropy',
-                      metrics=['accuracy'])
-    
-        if Summary_param:
-            model.summary()
+        
+    # --- Define model ---
+    model = multi_unet_model(n_classes=n_classes, 
+                             IMG_HEIGHT=IMG_HEIGHT, 
+                             IMG_WIDTH=IMG_WIDTH, 
+                             IMG_CHANNELS=IMG_CHANNELS)
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    if Summary_param:
+        model.summary()
     
     if not Training_param: # Load model 
         
-        # Define model
-        model = multi_unet_model(n_classes    = n_classes, 
-                                 IMG_HEIGHT   = IMG_HEIGHT, 
-                                 IMG_WIDTH    = IMG_WIDTH, 
-                                 IMG_CHANNELS = IMG_CHANNELS)
-        model.compile(optimizer = keras.optimizers.Adam(learning_rate=learning_rate),
-                      loss='categorical_crossentropy',
-                      metrics=['accuracy'])
+        # # Define model
+        # model = multi_unet_model(n_classes    = n_classes, 
+        #                          IMG_HEIGHT   = IMG_HEIGHT, 
+        #                          IMG_WIDTH    = IMG_WIDTH, 
+        #                          IMG_CHANNELS = IMG_CHANNELS)
+        # model.compile(optimizer = keras.optimizers.Adam(learning_rate=learning_rate),
+        #               loss='categorical_crossentropy',
+        #               metrics=['accuracy'])
         
-        # Print model summary
-        if Summary_param:
-            model.summary()
+        # # Print model summary
+        # if Summary_param:
+        #     model.summary()
             
         # Load the trained weights to the defined model 
         model.load_weights(model_folder + Save_name + '.hdf5')
@@ -834,4 +835,5 @@ def Main_model(X_train=None, y_train_cat=None, X_val=None, y_val_cat=None,
 #     return model, history
 
 # "=============================================================================================================================================================================================="
+
 
